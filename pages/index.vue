@@ -8,9 +8,14 @@
       <p>Don't forget that for each new subscriber you refer, both you and them get <b> {{ text }} </b> of coverage! 💙  </p>
       <p>Share your <b> {{ text }} </b> referral code</p>
       <div class="buttons">
-        <el-button v-clipboard="() => form.token"></el-button>
-        <el-button>
-          Copy Code
+        <el-form ref="form" :model="form" label-width="120px">
+            <el-input v-model="form.token"></el-input>
+        </el-form>
+        <el-button 
+          v-clipboard:copy="form.token"
+          v-clipboard:success="onCopy"
+          v-clipboard:error="onError"
+        >Copy!
         </el-button>
         <el-button>
           <a
@@ -45,18 +50,25 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 
 export default {
   data() {
     return {
-      form: {}, 
+      form: {
+        token: "SHARETHELOVE+5WMXM",
+      }, 
       text: "one free month",
     };
   },
   methods: {
     print: function (event) {
       console.log('Done');
+    },
+    onCopy: function (e) {
+      alert('You just copied: ' + e.text)
+    },
+    onError: function (e) {
+      alert('Failed to copy text')
     }
   }
 }
