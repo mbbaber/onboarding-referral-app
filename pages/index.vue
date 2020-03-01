@@ -17,23 +17,13 @@
           v-clipboard:error="onError"
         >Copy!
         </el-button>
-        <el-button>
-          <a
-          href="tweet"
-          target="_blank"
-          class="button--blue"
-        >
-          Tweet
-        </a>
+        <el-button 
+          v-on:click="encodeAndTweet"
+        >Tweet
         </el-button>
-        
-        <a
-          href="www.facebook.com"
-          target="_blank"
-          class="button--blue"
-        >
+        <el-button>
           Share
-        </a>
+        </el-button>
       </div>
       <div>
         <p>You can also send <b> {{ text }} </b> via email, separate emails with semi-colon « ; » </p>
@@ -58,6 +48,9 @@ export default {
         token: "SHARETHELOVE+5WMXM",
       }, 
       text: "one free month",
+      tweet: "Je vous partage mon code promo qui permet de bénéficier d'un mois gratuit chez la néo-assurance Luko : ",
+      result: "",
+      url: "https://twitter.com/intent/tweet?text="
     };
   },
   methods: {
@@ -69,6 +62,12 @@ export default {
     },
     onError: function (e) {
       alert('Failed to copy text')
+    }, 
+    encodeAndTweet: function () {
+      console.log(encodeURIComponent(this.tweet+this.form.token));
+      this.result = this.url + encodeURIComponent(this.tweet+this.form.token);
+      console.log('result', this.result);
+      window.open(this.result, "_blank");
     }
   }
 }
