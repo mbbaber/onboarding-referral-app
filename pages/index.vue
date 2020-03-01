@@ -1,28 +1,44 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        onboarding-referral-app
-      </h1>
-      <h2 class="subtitle">
-        My legendary Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
+    <div class="column-1">
+      <img src="" alt="user-photo">
+    </div>
+    <div class="column-2">
+      <p style="font-weight:bold">Name</p>
+      <p>Don't forget that for each new subscriber you refer, both you and them get <b> {{ text }} </b> of coverage! 💙  </p>
+      <p>Share your <b> {{ text }} </b> referral code</p>
+      <div class="buttons">
+        <el-button v-clipboard="() => form.token"></el-button>
+        <el-button>
+          Copy Code
+        </el-button>
+        <el-button>
+          <a
+          href="tweet"
           target="_blank"
-          class="button--green"
+          class="button--blue"
         >
-          Documentation
+          Tweet
         </a>
+        </el-button>
+        
         <a
-          href="https://github.com/nuxt/nuxt.js"
+          href="www.facebook.com"
           target="_blank"
-          class="button--grey"
+          class="button--blue"
         >
-          GitHub
+          Share
         </a>
+      </div>
+      <div>
+        <p>You can also send <b> {{ text }} </b> via email, separate emails with semi-colon « ; » </p>
+        <form action="">
+          Another form
+        </form>
+      </div>
+      <div>
+        <el-button>Send email</el-button>
+        <el-button v-on:click="print">Done</el-button>
       </div>
     </div>
   </div>
@@ -32,8 +48,16 @@
 import Logo from '~/components/Logo.vue'
 
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      form: {}, 
+      text: "one free month",
+    };
+  },
+  methods: {
+    print: function (event) {
+      console.log('Done');
+    }
   }
 }
 </script>
@@ -41,32 +65,17 @@ export default {
 <style>
 .container {
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  flex-direction: row;
+  align-items: stretch;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+.column-1 {
+  flex: 0 1 10%;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.column-2 {
+  flex: 0 1 90%;
 }
 
-.links {
-  padding-top: 15px;
-}
 </style>
